@@ -23,6 +23,25 @@ export class Sitting extends State{
 
     }
     handleInput(input){
+        if (input.has ('ArrowLeft') || input.has('ArrowRight')){
+           this.player.setState(states.RUNNING)
+        }
+
+    }
+}
+export class Running extends State{
+    constructor(player){
+        super('RUNNING')
+        this.player = player;
+    }
+    enter(){
+        this.player.frameY = 3;
+
+    }
+    handleInput(input){
+        if (input.has ('ArrowDown')){
+           this.player.setState(states.SITTING)
+        }
 
     }
 }
