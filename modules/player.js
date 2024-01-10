@@ -6,9 +6,24 @@ export class Player{
         this.x = 0;
         this.y = this.game.height - this.height;// bottom of canvas
         this.image = document.getElementById('player');//can also just use id alone weirdly
+        this.speed = 0;
     }
-    update(){
-        // this.x++
+    update(input){
+        if(input.has('ArrowLeft')){
+            this.x--;
+        }
+        if(input.has('ArrowRight')){
+            this.x++;
+        }
+        if(input.has('ArrowUp')){
+            this.y--;
+        }
+        if(input.has('ArrowDown')){
+            this.y++;
+        }
+        if(input.has('x')){
+            console.log('x')
+        }
     }
     draw(context){
         
