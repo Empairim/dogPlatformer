@@ -1,15 +1,23 @@
+import { Sitting } from "./playerStates.js";
+``
+
 export class Player{
     constructor(game){
         this.game = game;
-        this.width = 190;//width of sheet / frames horizontally
-        this.height = 180;// height of sheet / frames vertically
-        this.x = 0;
+        this.width = 100;//width of sheet / frames horizontally
+        this.height = 93;// height of sheet / frames vertically
+        this.x = 200;
         this.y = this.game.height - this.height;// bottom of canvas
         this.vy = 0 //velocity y axis
         this.weight = 1;
-        this.image = document.getElementById('player');//can also just use id alone weirdly
+        this.image = document.getElementById('player');
+        this.frameX = 0;
+        this.frameY = 0;
         this.speed = 0;
         this.maxSpeed = 10;
+        this.states = [new Sitting(this)]
+        this.currentState = this.states[0];
+        this.currentState.enter();
     }
     update(input){
         //horizontal movement
@@ -39,15 +47,14 @@ export class Player{
         }
         else if(input.has('ArrowDown')){
             this.vy = this.maxSpeed;
-            
+
         }
         else(
             this.vy = 0)
 
     }
     draw(context){
-        
-        context.drawImage(this.image, 0, 0, this.width, this.height, this.x, this.y, this.width, this.height)//draw image takes 9 arguments image source, x,y,width,height, x,y,width,height
+        context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height)
     }
     onGround(){
         return this.y >= this.game.height - this.height;
