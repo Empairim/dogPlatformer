@@ -1,4 +1,5 @@
 import { Player } from "./modules/player.js";
+import { InputHandler } from "./modules/input.js";
 
 window.addEventListener('load', function() {
 
@@ -13,6 +14,7 @@ window.addEventListener('load', function() {
             this.width = width;
             this.height = height;
             this.player = new Player(this);
+            this.input = new InputHandler();
     }
     update(){
         this.player.update();
