@@ -16,8 +16,8 @@ window.addEventListener('load', function() {
             this.player = new Player(this);
             this.input = new InputHandler();
     }
-    update(){
-        this.player.update(this.input.keys);
+    update(deltaTime){
+        this.player.update(this.input.keys, deltaTime);//passing in deltaTime to player update
     }
     draw(context){
         this.player.draw(context)
@@ -26,15 +26,18 @@ window.addEventListener('load', function() {
 
 const game = new Game(canvas.width, canvas.height);
 console.log(game)
+let lastTime = 0;//time stamp of previous loop
 
 
-function animate(){
+function animate(timestamp)//timestamp is time since page loaded
+{   const deltaTime = timestamp - lastTime;
+    lastTime = timestamp;//controls speed of animation for next loop
     ctx.clearRect(0,0,canvas.width, canvas.height);
-    game.update();
+    game.update(deltaTime);
     game.draw(ctx);
     requestAnimationFrame(animate);
 }
-animate();
+animate(0)// passed in timestamp of 0 to start animation loop since its expecting a timestamp in animate function;
 
 
 
