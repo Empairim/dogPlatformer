@@ -19,6 +19,6 @@
     
 }
 
-#player, #bg1, #bg2, #bg3, #bg4, #bg5{
+#player, #bg1, #bg2, #bg3, #bg4, #bg5, #enemy1,#enemy2,#enemy3,#enemyDeath,#attack{
     display: none;
 }

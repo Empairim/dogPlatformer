@@ -9,6 +9,7 @@ class Layer{
         this.y = initialY || 0;// allows me to set y of each layer individually
         this.opacity = opacity;
         
+        
     }
     update(){
         if(this.x < -this.width) this.x = 0;//resets x if off screen
@@ -35,7 +36,7 @@ export class Background{
         new Layer(this.game, 1920, 1080, 0.4, document.getElementById('bg2')),
         new Layer(this.game, 1920, 1080, 0.6, document.getElementById('bg3')),
         new Layer(this.game, 1920, 1080, 0.8, document.getElementById('bg4')),
-        new Layer(this.game, 1920, 1080, 1, document.getElementById('bg5'),48,0.5)
+        new Layer(this.game, 1920, 1080, 1, document.getElementById('bg5'),48,0.7)
     
     ]
     }
