@@ -7,7 +7,7 @@ export class Player{
         this.width = 100;//width of sheet / frames horizontally
         this.height = 93;// height of sheet / frames vertically
         this.x = 200;
-        this.y = this.game.height - this.height;// bottom of canvas
+        this.y = this.game.height - this.height - this.game.groundMargin;// bottom of canvas
         this.vy = 0 //velocity y axis
         this.weight = 1;
         this.image = document.getElementById('player');
@@ -60,10 +60,11 @@ export class Player{
         context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height)
     }
     onGround(){
-        return this.y >= this.game.height - this.height;
+        return this.y >= this.game.height - this.height - this.game.groundMargin;
     }
-    setState(state){
+    setState(state, speed){
         this.currentState = this.states[state]
+        this.game.speed = this.game.maxSpeed * speed;
         this.currentState.enter()
     }
 }
