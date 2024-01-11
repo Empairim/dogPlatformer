@@ -19,8 +19,9 @@ export class Sitting extends State{
         this.player = player;
     }
     enter(){
-        this.player.frameY = 5;
+        this.player.frameX = 0;//reset frameX prevents blinking
         this.player.maxFrame = 4;
+        this.player.frameY = 5;
         this.player.fpsInterval = 1000 / this.player.fps; // Reset fpsInterval to normal
 
     }
@@ -37,8 +38,9 @@ export class Running extends State{
         this.player = player;
     }
     enter(){
-        this.player.frameY = 3;
+        this.player.frameX = 0;
         this.player.maxFrame = 8;
+        this.player.frameY = 3;
         this.player.fpsInterval = 0.5 //speed up animation for running state
 
     }
@@ -59,8 +61,9 @@ export class Jumping extends State{
         if(this.player.onGround()){
             this.player.vy -= 30;//jump
         }
-        this.player.frameY = 1;
+        this.player.frameX = 0;
         this.player.maxFrame = 6;
+        this.player.frameY = 1;
         this.player.fpsInterval = 1000 / this.player.fps; // Reset fpsInterval to normal
 
     }
@@ -77,8 +80,9 @@ export class Falling extends State{
         this.player = player;
     }
     enter(){
-        this.player.frameY = 2;
+        this.player.frameX = 0;
         this.player.maxFrame = 6;
+        this.player.frameY = 2;
         this.player.fpsInterval = 1000 / this.player.fps; // Reset fpsInterval to normal
 
     }
