@@ -1,6 +1,9 @@
 import { Player } from "./modules/player.js";
 import { InputHandler } from "./modules/input.js";
 import { Background } from "./modules/background.js";
+import { FlyingEnemy, ClimbingEnemy, GroundEnemy } from "./modules/enemy.js";
+
+
 
 window.addEventListener('load', function() {
 
@@ -8,6 +11,9 @@ window.addEventListener('load', function() {
     const ctx = canvas.getContext('2d');
     canvas.width = 1920;
     canvas.height = 1080;
+
+
+
 
 
     class Game{
@@ -20,20 +26,35 @@ window.addEventListener('load', function() {
             this.background = new Background(this);
             this.player = new Player(this);
             this.input = new InputHandler();
+            this.enemies = [];
+            this.enemyTimer = 0;
+            this.enemyInterval = 1000;
     }
     update(deltaTime){
         this.background.update();
         this.player.update(this.input.keys, deltaTime);//passing in deltaTime to player update
+        if (this.enemyTimer > this.enemyInterval) {
+            this.addEnemy();
+            this.enemyTimer = 0;
+        }else this.enemyTimer += deltaTime;
+        this.enemies.forEach(enemy => enemy.update(deltaTime));
     }
     draw(context){
         this.background.draw(context);
         this.player.draw(context)
-        this.background.bgLayers[4].draw(context)
+        this.background.bgLayers[4].draw(context)//draws the ground layer on top of player
+        //handle enemies
+        this.enemies.forEach(enemy => enemy.draw(context));
+
+    }
+    addEnemy(){
+        this.enemies.push(new FlyingEnemy(this));
+        console.log(this.enemies)
     }
 }
 
 const game = new Game(canvas.width, canvas.height);
-console.log(game)
+
 let lastTime = 0;//time stamp of previous loop
 
 

@@ -25,7 +25,6 @@ class Layer{
     }
 }
 
-
 export class Background{
     constructor(game){
         this.game = game;
