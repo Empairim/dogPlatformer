@@ -5,7 +5,7 @@ import { FlyingEnemy, ClimbingEnemy, GroundEnemy } from "./modules/enemy.js";
 
 
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -16,8 +16,8 @@ window.addEventListener('load', function() {
 
 
 
-    class Game{
-        constructor(width, height){
+    class Game {
+        constructor(width, height) {
             this.width = width;
             this.height = height;
             this.speed = 0
@@ -29,29 +29,37 @@ window.addEventListener('load', function() {
             this.enemies = [];
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
-    }
-    update(deltaTime){
-        this.background.update();
-        this.player.update(this.input.keys, deltaTime);//passing in deltaTime to player update
-        if (this.enemyTimer > this.enemyInterval) {
-            this.addEnemy();
-            this.enemyTimer = 0;
-        }else this.enemyTimer += deltaTime;
-        this.enemies.forEach(enemy => enemy.update(deltaTime));
-    }
-    draw(context){
-        this.background.draw(context);
-        this.player.draw(context)
-        this.background.bgLayers[4].draw(context)//draws the ground layer on top of player
-        //handle enemies
-        this.enemies.forEach(enemy => enemy.draw(context));
+            this.groundEnemyAdded = false;
+        }
+        update(deltaTime) {
+            this.background.update();
+            this.player.update(this.input.keys, deltaTime);//passing in deltaTime to player update
+            if (this.enemyTimer > this.enemyInterval) {
+                this.addEnemy();
+                this.enemyTimer = 0;
+            } else this.enemyTimer += deltaTime;
+            this.enemies.forEach(enemy => enemy.update(deltaTime));
+        }
+        draw(context) {
+            this.background.draw(context);
+            this.player.draw(context)
+            this.background.bgLayers[4].draw(context)//draws the ground layer on top of player
+            //handle enemies
+            this.enemies.forEach(enemy => enemy.draw(context));
 
+        }
+        addEnemy() {
+            // if(this.speed > 0 && Math.random() < 0.5) this.enemies.push(new GroundEnemy(this));
+            this.enemies.push(new FlyingEnemy(this));
+            console.log(this.enemies);
+            if (!this.groundEnemyAdded) {
+                this.enemies.push(new GroundEnemy(this));
+                this.groundEnemyAdded = true;
+            }
+        }
     }
-    addEnemy(){
-        this.enemies.push(new FlyingEnemy(this));
-        console.log(this.enemies)
-    }
-}
+
+
 
 const game = new Game(canvas.width, canvas.height);
 
