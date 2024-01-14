@@ -3,7 +3,7 @@ class Enemy{
         this.game = game;
         this.frameX = 0;
         this.frameY = 0;
-        this.fps = 20;
+        this.fps = 15;
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
         this.markedForDeletion = false;
@@ -13,21 +13,21 @@ class Enemy{
         //movement
         this.x -= this.speedX;
         this.y += this.speedY;
-        // if(this.frameTimer > this.frameInterval){
-        //     this.frameTimer = 0;
-        //     this.frameX++;
-        //     if(this.frameX > this.maxFrame) this.frameX = 0;
-        
-        // } else {
-        //     this.frameTimer += deltaTime;
-        // }
-        if (this.frameTimer > this.frameInterval) {
+        if(this.frameTimer > this.frameInterval){
             this.frameTimer = 0;
             this.frameX++;
-            if (this.frameX > this.maxFrame) this.frameX = 0;
+            if(this.frameX > this.maxFrame) this.frameX = 0;
+        
         } else {
             this.frameTimer += deltaTime;
         }
+        // if (this.frameTimer > this.frameInterval) {
+        //     this.frameTimer = 0;
+        //     this.frameX++;
+        //     if (this.frameX > this.maxFrame) this.frameX = 0;
+        // } else {
+        //     this.frameTimer += deltaTime;
+        // }
         //remove if off screen
         if (this.x < -this.width) { this.markedForDeletion = true; }
         if (this.markedForDeletion == true) {
@@ -69,24 +69,30 @@ export class GroundEnemy extends Enemy {
         this.game = game;
         this.width = 528; // width of a single frame
         this.height = 529; // height of a single frame
-        this.x = this.game.width - this.width;
-        this.y = this.game.height - this.height + game.groundMargin 
+        this.x = this.game.width - Math.random() * this.game.width * 0.5;
+        this.y = this.game.height - this.height + game.groundMargin + 250
         this.image = document.getElementById('enemy1');
         this.speedX = 0;
         this.speedY = 0;
         this.maxFrame = 38
-        this.fps = 19;
-        this.frameInterval = 1000 / this.fps;
+      
     }
     draw(context) {
+        context.save(); // Save the current state
+        context.globalAlpha = 1.0; // Set the alpha value
+    
         context.drawImage(
             this.image,
             this.width * this.frameX, 0, // source x, source y
             this.width, this.height, // source width, source height
             this.x, this.y, // destination x, destination y
-            this.width /3, this.height/3 // destination width, destination height
+            this.width /4, this.height/4 // destination width, destination height
         );
+    
+        context.restore(); //
     }
+    
+    
    
 }
 
@@ -94,5 +100,26 @@ export class ClimbingEnemy extends Enemy {
     constructor(game) {
         super()
         this.game = game;
-     }
+        this.width = 120
+        this.height = 144
+        this.x = this.game.width - Math.random() * this.game.width * 0.5;
+        this.y = Math.random() * (game.height * 0.5)
+        this.image = document.getElementById('enemy3');
+        this.speedX = 0;
+        this.speedY = Math.random() > 0.5 ? 1 : -1;
+        this.maxFrame = 5
+    }
+    update(deltaTime) {
+        super.update(deltaTime);
+        if (this.y > this.game.height - this.height - this.game.groundMargin) this.speedY = -1;
+        if (this.y < -this.height) this.markedForDeletion = true;
+    }
+    draw(context) { 
+        super.draw(context);
+        context.beginPath();
+        context.moveTo(this.x + this.width/2,0);
+        context.lineTo(this.x + this.width/2, this.y + 50);
+        context.stroke();
+        context.strokeStyle = 'red';
+    }
 }

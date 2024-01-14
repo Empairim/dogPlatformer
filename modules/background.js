@@ -35,7 +35,9 @@ export class Background{
         new Layer(this.game, 1920, 1080, 0.4, document.getElementById('bg2')),
         new Layer(this.game, 1920, 1080, 0.6, document.getElementById('bg3')),
         new Layer(this.game, 1920, 1080, 0.8, document.getElementById('bg4')),
-        new Layer(this.game, 1920, 1080, 1, document.getElementById('bg5'),48,0.7)
+        new Layer(this.game, 1920, 1080, 1, document.getElementById('bg5'), -100, 0.6),
+        new Layer(this.game, 1920, 1080, 1, document.getElementById('bg6'),50,),
+        
     
     ]
     }
