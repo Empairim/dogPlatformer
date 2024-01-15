@@ -21,14 +21,6 @@ class Enemy{
         } else {
             this.frameTimer += deltaTime;
         }
-        // if (this.frameTimer > this.frameInterval) {
-        //     this.frameTimer = 0;
-        //     this.frameX++;
-        //     if (this.frameX > this.maxFrame) this.frameX = 0;
-        // } else {
-        //     this.frameTimer += deltaTime;
-        // }
-        //remove if off screen
         if (this.x < -this.width) { this.markedForDeletion = true; }
         if (this.markedForDeletion == true) {
              this.game.enemies = this.game.enemies.filter(enemy => !enemy.markedForDeletion);
@@ -83,10 +75,10 @@ export class GroundEnemy extends Enemy {
     
         context.drawImage(
             this.image,
-            this.width * this.frameX, 0, // source x, source y
-            this.width, this.height, // source width, source height
-            this.x, this.y, // destination x, destination y
-            this.width /4, this.height/4 // destination width, destination height
+            this.width * this.frameX, 0, 
+            this.width, this.height, 
+            this.x, this.y, 
+            this.width /4, this.height/4 
         );
     
         context.restore(); //
