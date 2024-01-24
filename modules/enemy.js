@@ -62,16 +62,17 @@ export class GroundEnemy extends Enemy {
         this.width = 528; // width of a single frame
         this.height = 529; // height of a single frame
         this.x = this.game.width - Math.random() * this.game.width * 0.5;
-        this.y = this.game.height - this.height + game.groundMargin + 250
+        this.y = this.game.height - this.height + game.groundMargin + 200 
         this.image = document.getElementById('enemy1');
         this.speedX = 0;
         this.speedY = 0;
         this.maxFrame = 38
+       
       
     }
     draw(context) {
         context.save(); // Save the current state
-        context.globalAlpha = 1.0; // Set the alpha value
+        context.globalAlpha = .75; // Set the alpha value
     
         context.drawImage(
             this.image,
@@ -95,7 +96,7 @@ export class ClimbingEnemy extends Enemy {
         this.width = 120
         this.height = 144
         this.x = this.game.width - Math.random() * this.game.width * 0.5;
-        this.y = Math.random() * (game.height * 0.5)
+        this.y = Math.random() * (game.height * 0.5) 
         this.image = document.getElementById('enemy3');
         this.speedX = 0;
         this.speedY = Math.random() > 0.5 ? 1 : -1;
