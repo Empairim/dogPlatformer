@@ -27,6 +27,7 @@ class Enemy{
         }
     }
     draw(context) {
+        if(this.game.debug) context.strokeRect(this.x, this.y, this.width, this.height);
         context.drawImage(this.image, this.frameX * this.width,0,this.width, this.height, this.x, this.y, this.width, this.height)
     }
 }
@@ -73,7 +74,7 @@ export class GroundEnemy extends Enemy {
     draw(context) {
         context.save(); // Save the current state
         context.globalAlpha = .75; // Set the alpha value
-    
+        if(this.game.debug) context.strokeRect(this.x, this.y, this.width / 4, this.height / 4);;
         context.drawImage(
             this.image,
             this.width * this.frameX, 0, 
