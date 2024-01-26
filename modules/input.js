@@ -9,7 +9,7 @@ export class InputHandler{
             console.log(this.keys);
             if(this.keys.has('d')) {
                 this.game.debug = !this.game.debug;
-                console.log('Debug mode toggled: ' + this.game.debug);
+                // console.log('Debug mode toggled: ' + this.game.debug);
             }
         });
 
